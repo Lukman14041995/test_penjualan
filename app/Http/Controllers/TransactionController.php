@@ -100,13 +100,16 @@ class TransactionController extends Controller
      */
     public function report()
     {
-        $report = TransactionHeader::join('transaction_details','transaction_headers.document_code','transaction_details.document_code')
-                                    ->join('products','transaction_details.product_code','products.product_code')
-                                    ->select('transaction_headers.document_code','transaction_headers.document_number','transaction_headers.total','transaction_headers.date','transaction_headers.user', DB::raw('group_concat(products.product_name) as names,(transaction_details.quantity)as qty'))
-                                    ->groupBy('transaction_headers.document_code','transaction_headers.document_number','transaction_headers.total','transaction_headers.date','transaction_headers.user','transaction_details.quantity')
-                                    ->get();
+        $report = TransactionHeader::all();
+        $item   = TransactionDetail::join('products','transaction_details.product_code','products.product_code')
+                                    ->select('products.product_name',
+                                            'transaction_details.quantity',
+                                            'transaction_details.unit'
+                                            ,'transaction_details.document_code',
+                                            'transaction_details.document_number')
+                                            ->get();
                                     // dd($report);
-        return view('report.penjualan',compact('report'));
+        return view('report.penjualan',compact('report','item'));
     }
 
     /**

@@ -214,7 +214,7 @@
                                                                 <h5 class="modal-title text-white"
                                                                     style="width : 100%; font-family: hi"
                                                                     id="exampleModalLabel">
-                                                                    Edit Quantity</h5>
+                                                                    Edit Quantity from {{$datas->quantity}} {{$datas->unit}}</h5>
                                                                 <button type="button" class="close" data-dismiss="modal"
                                                                     aria-label="Close">
                                                                     <span aria-hidden="true">&times;</span>
@@ -224,12 +224,10 @@
                                                                 <form action="{{route('edit_qty')}}" method="post">
                                                                     @csrf
                                                                     <input type="hidden" name="product_code"
-                                                                        value="{{$lists->product_code}}">
+                                                                        value="{{$datas->product_code}}">
                                                                     <div class="form-group">
                                                                         <label for="">Masukan Quantity Terbaru</label>
-                                                                        <input type="number" class="form-control"
-                                                                            name="qty" value="{{$datas->quantity}}"
-                                                                            placeholder="Masukan  Qty">
+                                                                        <input type="number" class="form-control" name="qty"  placeholder="Masukan  Qty">
                                                                     </div>
 
                                                             </div>

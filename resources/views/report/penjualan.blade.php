@@ -27,7 +27,13 @@
                     <td>{{$reports->user}}</td>
                     <td>{{number_format($reports->total)}}</td>
                     <td>{{ \Carbon\Carbon::parse($reports->date)->isoFormat('dddd, D MMMM Y')}}</td>
-                    <td>{{$reports->names}}</td>
+                    @foreach($item as $items)
+                    @if($items->document_code == $reports->document_code || $items->document_number == $reports->document_number)
+                    <td><ul>
+                      <li>{{$items->product_name}} {{$items->quantity}}{{$items->unit}}</li>
+                    </ul></td>
+                    @endif
+                    @endforeach
                   </tr>
                   @endforeach
                  

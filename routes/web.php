@@ -32,6 +32,9 @@ Route::group(['middleware' => 'auth'], function () {
 
 Route::group(['middleware' => 'auth'], function () {
 	Route::get('userindex', ['as' => 'userindex', 'uses' => 'App\Http\Controllers\UserController@index']);
+	Route::post('adduser', ['as' => 'adduser', 'uses' => 'App\Http\Controllers\UserController@adduser']);
+	Route::post('useredit', ['as' => 'useredit', 'uses' => 'App\Http\Controllers\UserController@useredit']);
+	Route::post('userdelete', ['as' => 'userdelete', 'uses' => 'App\Http\Controllers\UserController@userdelete']);
 	Route::get('productlist', ['as' => 'productlist', 'uses' => 'App\Http\Controllers\ProductController@product_list']);
 	Route::post('createproduct', ['as' => 'createproduct', 'uses' => 'App\Http\Controllers\ProductController@create']);
 	Route::post('buy', ['as' => 'buy', 'uses' => 'App\Http\Controllers\TransactionController@buy']);

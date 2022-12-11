@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\TransactionDetail;
+use DB;
 class ProductController extends Controller
 {
     /**
@@ -27,17 +28,24 @@ class ProductController extends Controller
                                         'transaction_details.currency')
                                 ->get();
         $total = TransactionDetail::whereNull('document_code')->sum('subtotal');
-        $num  = 1;
-        $kode =  sprintf("%03s", $num);
-        $cek = TransactionDetail::where('document_number',$kode)->count();
-        if($cek){
-            $code =  sprintf("%03s", $num);
-        }else{
-            $code =  sprintf("%03s", $num);
+        $q=DB::table('transaction_headers')->select('document_number')->get();
+        // dd($q);
+        if($q->count()>0)
+        {
+            foreach($q as $k)
+            {
+                $tmp = ((int)$k->document_number)+1;
+                $kd = sprintf("%03s", $tmp);
+            }
         }
+        else
+        {
+            $kd = "001";
+        }
+        // dd($kd);
         $not =TransactionDetail::whereNull('document_code')->count();
         // dd($update);
-        return view('product.list',compact('list','data','total','num','kode','code','not'));
+        return view('product.list',compact('list','data','total','kd','not'));
     }
 
     /**

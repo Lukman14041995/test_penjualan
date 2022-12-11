@@ -285,7 +285,7 @@
                                                         <form action="{{route('confirm')}}" method="post">
                                                         @csrf
                                                         <input type="hidden" name="document_number"
-                                                                        value="{{$code}}">
+                                                                        value="{{$kd}}">
                                                         <input type="hidden" name="document_code"
                                                                         value="TRX">
                                                         
